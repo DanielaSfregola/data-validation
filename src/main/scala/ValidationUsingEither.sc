@@ -7,6 +7,7 @@ def validateEmail(email: String): Either[List[String], String] = {
     case _                                              => Left(List("Invalid email format"))
   }
 }
+
 def validatePhone(phone: String): Either[List[String], String] = {
   val phoneRegex = """^\+(?:[0-9] ?){6,14}[0-9]$""".r
   phone match{
