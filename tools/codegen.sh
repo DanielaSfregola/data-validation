@@ -1,3 +1,3 @@
 #!/bin/sh
 cd "$(dirname "$0")"
-scala codegen.scala Combine > ../src/main/scala/com/danielasfregola/datavalidation/CombineArities.scala
+scala codegen.scala Accumulate > ../src/main/scala/app/validation/AccumulateArities.scala
