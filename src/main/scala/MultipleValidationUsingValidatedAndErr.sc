@@ -29,7 +29,7 @@ def validateEmailByKeyword(email: String, keyword:String): ValidatedNel[Err, Str
   else Validated.invalidNel(Err(ErrorCode.EmailMustContainKeyword,  s"email must contain keyword $keyword"))
 
 def validateEmail(e: String): ValidatedNel[Err, String] =
-  (validateEmailByRegex(e) |@| validateEmailByKeyword(e, "good")) map { case _ => e }
+  validateEmailByRegex(e) *> validateEmailByKeyword(e, "good")
 
 def validatePhoneByRegex(phone: String): ValidatedNel[Err, String] = {
   val phoneRegex = """^\+(?:[0-9] ?){6,14}[0-9]$""".r
@@ -46,7 +46,7 @@ def validatePhoneByPrefix(phone: String, prefix:String): ValidatedNel[Err, Strin
 
 
 def validatePhone(p: String): ValidatedNel[Err, String] =
-  (validatePhoneByPrefix(p, "+44") |@| validatePhoneByRegex(p)) map { case _ => p }
+  validatePhoneByPrefix(p, "+44") *> validatePhoneByRegex(p)
 
 def validateData(d: Data): ValidatedNel[Err, Data] = {
   val validEmail = validateEmail(d.email)
