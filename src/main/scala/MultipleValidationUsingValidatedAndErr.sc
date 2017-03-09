@@ -41,7 +41,7 @@ def validatePhoneByRegex(phone: String): ValidatedNel[Err, String] = {
 
 def validatePhoneByPrefix(phone: String, prefix:String): ValidatedNel[Err, String] =
   if (phone contains prefix) Validated.valid(phone)
-  else Validated.invalidNel(Err(ErrorCode.InvalidPhoneNumberPrefix, s"phone must have prefix: $prefix")))
+  else Validated.invalidNel(Err(ErrorCode.InvalidPhoneNumberPrefix, s"phone must have prefix: $prefix"))
 
 
 

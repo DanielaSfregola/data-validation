@@ -1,24 +1,24 @@
-import cats.data.Xor
+import cats.syntax.either._
 
 case class Data(email: String, phone: String)
 
-def validateEmail(email: String): Xor[List[String], String] = {
+def validateEmail(email: String): Either[List[String], String] = {
   val emailRegex = """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
   email match{
-    case e if emailRegex.findFirstMatchIn(e).isDefined  => Xor.Right(e)
-    case _                                              => Xor.Left(List("Invalid email format"))
+    case e if emailRegex.findFirstMatchIn(e).isDefined  => Right(e)
+    case _                                              => Left(List("Invalid email format"))
   }
 }
 
-def validatePhone(phone: String): Xor[List[String], String] = {
+def validatePhone(phone: String): Either[List[String], String] = {
   val phoneRegex = """^\+(?:[0-9] ?){6,14}[0-9]$""".r
   phone match{
-    case p if phoneRegex.findFirstMatchIn(p).isDefined  => Xor.Right(p)
-    case _                                              => Xor.Left(List("Phone number must be numeric"))
+    case p if phoneRegex.findFirstMatchIn(p).isDefined  => Right(p)
+    case _                                              => Left(List("Phone number must be numeric"))
   }
 }
 
-def validateData(d: Data): Xor[List[String], Data] =
+def validateData(d: Data): Either[List[String], Data] =
   for {
     validEmail <- validateEmail(d.email)
     validPhone <- validatePhone(d.phone)
