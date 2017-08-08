@@ -23,7 +23,7 @@ def validateData(d: Data): Validated[List[String], Data] = {
   val validEmail = validateEmail(d.email)
   val validPhone = validatePhone(d.phone)
 
-  (validEmail |@| validPhone).map(Data)
+  (validEmail, validPhone).mapN(Data)
 }
 
 /** *** ***/

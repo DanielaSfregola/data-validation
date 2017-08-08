@@ -52,7 +52,7 @@ def validateData(d: Data): ValidatedNel[Err, Data] = {
   val validEmail = validateEmail(d.email)
   val validPhone = validatePhone(d.phone)
 
-  (validEmail |@| validPhone).map(Data)
+  (validEmail, validPhone).mapN(Data)
 }
 
 /** *** ***/
