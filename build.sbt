@@ -1,7 +1,7 @@
 name := "data-validation"
 
-version := "1.0"
+version := "2.0"
 
 scalaVersion := "2.12.3"
 
-libraryDependencies += "org.typelevel" %% "cats-core" % "1.0.0-MF"
+libraryDependencies += "org.typelevel" %% "cats-core" % "2.1.1"

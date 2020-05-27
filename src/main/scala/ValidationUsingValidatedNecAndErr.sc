@@ -16,23 +16,23 @@ case class Data(email: String, phone: String)
 import cats.data._
 import cats.implicits._
 
-def validateEmail(email: String): ValidatedNel[Err, String] = {
+def validateEmail(email: String): ValidatedNec[Err, String] = {
   val emailRegex = """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
   email match{
     case e if emailRegex.findFirstMatchIn(e).isDefined  => Validated.valid(e)
-    case _                                              => Validated.invalidNel(Err(ErrorCode.InvalidEmailFormat, "Invalid email format"))
+    case _                                              => Validated.invalidNec(Err(ErrorCode.InvalidEmailFormat, "Invalid email format"))
   }
 }
 
-def validatePhone(phone: String): ValidatedNel[Err, String] = {
+def validatePhone(phone: String): ValidatedNec[Err, String] = {
   val phoneRegex = """^\+(?:[0-9] ?){6,14}[0-9]$""".r
   phone match{
     case p if phoneRegex.findFirstMatchIn(p).isDefined  => Validated.valid(p)
-    case _                                              => Validated.invalidNel(Err(ErrorCode.PhoneMustBeNumeric, "Phone number must be numeric"))
+    case _                                              => Validated.invalidNec(Err(ErrorCode.PhoneMustBeNumeric, "Phone number must be numeric"))
   }
 }
 
-def validateData(d: Data): ValidatedNel[Err, Data] = {
+def validateData(d: Data): ValidatedNec[Err, Data] = {
   val validEmail = validateEmail(d.email)
   val validPhone = validatePhone(d.phone)
 
