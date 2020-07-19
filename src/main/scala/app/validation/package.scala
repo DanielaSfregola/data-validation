@@ -4,6 +4,6 @@ import cats.data._
 
 package object validation {
 
-  type Validation[T] = ValidatedNel[Err, T]
+  type Validation[T] = ValidatedNec[Err, T]
 
 }
